@@ -3,6 +3,7 @@ package com.rimumu.shop.service;
 import com.rimumu.shop.entity.Member;
 import com.rimumu.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +22,16 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
         Member member = memberRepository.findByEmail(email);
 
-        if (member ==)
+        if (member == null) {
+            throw new UsernameNotFoundException(email);
+        }
+
+        return User.builder()
+                .username(member.getEmail())
+                .password(member.getPassword())
+                .roles(member.getRole().toString())
+                .build();
+
     }
 
     public Member saveMember(Member member) {

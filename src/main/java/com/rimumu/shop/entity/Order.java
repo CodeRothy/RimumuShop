@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue

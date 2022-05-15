@@ -1,6 +1,7 @@
 package com.rimumu.shop.service;
 
 import com.rimumu.shop.dto.ItemFormDto;
+import com.rimumu.shop.dto.ItemImgDto;
 import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.entity.ItemImg;
 import com.rimumu.shop.repository.ItemImgRepository;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,14 +24,14 @@ public class ItemService {
     private final ItemImgService itemImgService;
     private final ItemImgRepository itemImgRepository;
 
-    public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList ) throws Exception {
+    public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
 
         // 상품등록
         Item item = itemFormDto.createItem();
         itemRepository.save(item);
 
         // 이미지 등록
-        for (int i=0; i<itemImgFileList.size();i++) {
+        for (int i = 0; i < itemImgFileList.size(); i++) {
             ItemImg itemImg = new ItemImg();
             itemImg.setItem(item);
             if (i == 0) {
@@ -43,4 +46,22 @@ public class ItemService {
 
     }
 
+    @Transactional(readOnly = true)
+    public ItemFormDto getItemDtl(Long itemId) {
+
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+        for (ItemImg itemImg : itemImgList) {
+            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
+            itemImgDtoList.add(itemImgDto);
+        }
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(EntityNotFoundException::new);
+        ItemFormDto itemFormDto = ItemFormDto.of(item);
+        itemFormDto.setItemImgDtoList(itemImgDtoList);
+        return itemFormDto;
+
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.rimumu.shop.service;
 
+import com.rimumu.shop.dto.ItemFormDto;
+import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.entity.ItemImg;
 import com.rimumu.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
 
-    @Value("${itemImgService}")
+    @Value("${itemImgLocation}")
     private String itemImgLocation;
 
     private final ItemImgRepository itemImgRepository;
@@ -39,6 +43,21 @@ public class ItemImgService {
     }
 
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+        if (!itemImgFile.isEmpty()) {
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+                    .orElseThrow(EntityNotFoundException::new);
 
-    }
+            // 기존 이미지 파일 삭제
+            if (!StringUtils.isEmpty(savedItemImg.getImgName())) {
+                fileService.deleteFile(itemImgLocation + "/" + savedItemImg.getImgName());
+            }
+
+            String oriImgName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+            String imgUrl = "/images/item/" + imgName;
+            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+
+        }
+   }
+
 }

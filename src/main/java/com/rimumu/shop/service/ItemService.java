@@ -2,11 +2,14 @@ package com.rimumu.shop.service;
 
 import com.rimumu.shop.dto.ItemFormDto;
 import com.rimumu.shop.dto.ItemImgDto;
+import com.rimumu.shop.dto.ItemSearchDto;
 import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.entity.ItemImg;
 import com.rimumu.shop.repository.ItemImgRepository;
 import com.rimumu.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +50,7 @@ public class ItemService {
     }
 
 
-    public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList ) throws Exception {
+    public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
 
         // 상품 수정 감지
         Item item = itemRepository.findById(itemFormDto.getId())
@@ -81,5 +84,10 @@ public class ItemService {
         itemFormDto.setItemImgDtoList(itemImgDtoList);
         return itemFormDto;
 
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 }

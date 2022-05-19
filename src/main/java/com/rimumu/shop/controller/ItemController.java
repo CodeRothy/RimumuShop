@@ -28,6 +28,7 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    // 상품 등록
     @GetMapping(value = "/admin/item/new")
     public String itemForm(Model model) {
         model.addAttribute("itemFormDto", new ItemFormDto());
@@ -58,14 +59,16 @@ public class ItemController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/admin/item/{itemId}")
-    public String itemDtl(@PathVariable("itemId") Long itemId, Model model) {
+
+    // admin 상품 수정 페이지
+    @GetMapping("/admin/item/{itemId}")
+    public String itemDtl(@PathVariable("itemId") Long itemId, Model model){
 
         try {
             ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
             model.addAttribute("itemFormDto", itemFormDto);
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
+        } catch(EntityNotFoundException e){
+            model.addAttribute("errorMessage", "존재하지 않는 상품 입니다.");
             model.addAttribute("itemFormDto", new ItemFormDto());
             return "item/itemForm";
         }
@@ -73,6 +76,8 @@ public class ItemController {
         return "item/itemForm";
     }
 
+
+    // admin 상품 수정
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult,
                              @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
@@ -95,6 +100,7 @@ public class ItemController {
         return "redirect:/";
     }
 
+
     // 상품 리스트 & 페이징
     @GetMapping({"/admin/items", "/admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto,
@@ -107,5 +113,14 @@ public class ItemController {
         model.addAttribute("maxPage", 5);
         return "item/itemMng";
 
+    }
+
+
+    // User 상품 상세 페이지
+    @GetMapping("/item/{itemId}")
+    public String itemDtl(Model model, @PathVariable("itemId") Long itemId){
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        model.addAttribute("item", itemFormDto);
+        return "item/itemDtl";
     }
 }

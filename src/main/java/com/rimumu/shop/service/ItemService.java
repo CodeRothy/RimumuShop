@@ -3,6 +3,7 @@ package com.rimumu.shop.service;
 import com.rimumu.shop.dto.ItemFormDto;
 import com.rimumu.shop.dto.ItemImgDto;
 import com.rimumu.shop.dto.ItemSearchDto;
+import com.rimumu.shop.dto.MainItemDto;
 import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.entity.ItemImg;
 import com.rimumu.shop.repository.ItemImgRepository;
@@ -90,4 +91,10 @@ public class ItemService {
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
+    }
+
 }

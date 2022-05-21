@@ -31,6 +31,12 @@ public class ItemImgService {
         String imgName = "";
         String imgUrl = "";
 
+        /*
+        * 이미지 경로 못 읽음
+        * isEmpty 밑줄,
+        * imgUrl 확인
+        * */
+
         // 파일 업로드 호출 사용
         if (!StringUtils.isEmpty(oriImgName)) {
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());

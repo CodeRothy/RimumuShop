@@ -26,16 +26,17 @@ public class ItemImgService {
 
     private final FileService fileService;
 
+    /*
+     * 이미지 경로 못 읽음
+     * isEmpty 밑줄,
+     * imgUrl 확인
+     * */
+
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
 
-        /*
-        * 이미지 경로 못 읽음
-        * isEmpty 밑줄,
-        * imgUrl 확인
-        * */
 
         // 파일 업로드 호출 사용
         if (!StringUtils.isEmpty(oriImgName)) {

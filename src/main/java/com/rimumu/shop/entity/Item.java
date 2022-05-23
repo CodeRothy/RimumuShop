@@ -2,6 +2,7 @@ package com.rimumu.shop.entity;
 
 import com.rimumu.shop.constant.ItemSellStatus;
 import com.rimumu.shop.dto.ItemFormDto;
+import com.rimumu.shop.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,12 +41,22 @@ public class Item extends BaseEntity {
 
     private LocalDateTime updateTime; // 수정시간
 
+
     public void updateItem(ItemFormDto itemFormDto) {
         this.itemNm = itemFormDto.getItemNm();
         this.price = itemFormDto.getPrice();
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
+
+    // 주문 시 재고확인
+    public void removeStock(int stockNumber) {
+        int restStock = this.stockNumber - stockNumber;
+        if (restStock < 0) {
+            throw new OutOfStockException("상품의 재고가 부족 합니다. ( 현재 재고 수량 : " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock;
     }
 
 }

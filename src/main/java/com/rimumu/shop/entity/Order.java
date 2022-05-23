@@ -35,4 +35,29 @@ public class Order extends BaseEntity {
 
     private LocalDateTime updateTime;
 
+    // 주문상품 추가
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setMember(member);
+        for (OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+        order.setOrderStatus(OrderStatus.ORDER); // 주문상태를 order 로 세팅
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getToTalPrice(){
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getToTalPrice();
+        }
+        return totalPrice;
+    }
+
 }

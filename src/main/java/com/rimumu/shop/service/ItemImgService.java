@@ -1,18 +1,16 @@
 package com.rimumu.shop.service;
 
-import com.rimumu.shop.dto.ItemFormDto;
-import com.rimumu.shop.entity.Item;
+
 import com.rimumu.shop.entity.ItemImg;
 import com.rimumu.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

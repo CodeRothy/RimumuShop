@@ -51,6 +51,7 @@ public class OrderController {
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+
         return new ResponseEntity<Long>(orderId, HttpStatus.OK); // 주문번호 생성 및 상태코드 반환
     }
 
@@ -67,6 +68,19 @@ public class OrderController {
 
         return "order/orderHist";
 
+    }
+
+    // 주문 취소 로직 호출
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody
+    ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+
+        if (!orderService.validateOrder(orderId, principal.getName())) {
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
 }

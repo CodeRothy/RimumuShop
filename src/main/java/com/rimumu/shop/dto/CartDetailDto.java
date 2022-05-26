@@ -4,7 +4,7 @@ package com.rimumu.shop.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-// 장바구니 dto
+// 장바구니 조회시 생성자 생성으로 전달 될 dto
 @Getter @Setter
 public class CartDetailDto {
 

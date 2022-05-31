@@ -39,9 +39,9 @@ public class ItemService {
             ItemImg itemImg = new ItemImg();
             itemImg.setItem(item);
             if (i == 0) {
-                itemImg.setRepimgYn("Y"); // 썸네일 여부
+                itemImg.setRepImgYn("y"); // 썸네일 여부
             } else {
-                itemImg.setRepimgYn("N");
+                itemImg.setRepImgYn("N");;
             }
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }

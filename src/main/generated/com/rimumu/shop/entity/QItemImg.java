@@ -43,7 +43,7 @@ public class QItemImg extends EntityPathBase<ItemImg> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
 
-    public final StringPath repimgYn = createString("repimgYn");
+    public final StringPath repImgYn = createString("repImgYn");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;

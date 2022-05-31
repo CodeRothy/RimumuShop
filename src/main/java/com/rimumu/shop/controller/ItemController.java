@@ -35,7 +35,7 @@ public class ItemController {
         return "/item/itemForm";
     }
 
-    @PostMapping("/admin/item/new")
+    @PostMapping(value = "/admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
 
@@ -61,7 +61,7 @@ public class ItemController {
 
 
     // admin 상품 수정 페이지
-    @GetMapping("/admin/item/{itemId}")
+    @GetMapping(value = "/admin/item/{itemId}")
     public String itemDtl(@PathVariable("itemId") Long itemId, Model model){
 
         try {
@@ -102,7 +102,7 @@ public class ItemController {
 
 
     // 상품 리스트 & 페이징
-    @GetMapping({"/admin/items", "/admin/items/{page}"})
+    @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto,
                              @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3); // 페이징 0부터 시작, 3개씩

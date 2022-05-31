@@ -28,7 +28,7 @@ public class OrderController {
     private final OrderService orderService;
 
     // 주문하기
-    @PostMapping("/order")
+    @PostMapping(value = "/order")
     public @ResponseBody
     ResponseEntity order( // @ResponseBody 스프링 비동기 처리
                           @RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
@@ -56,7 +56,7 @@ public class OrderController {
     }
 
     // 주문이력 조회
-    @GetMapping({"/orders", "/orders/{page}"})
+    @GetMapping(value = {"/orders", "/orders/{page}"})
     public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model) {
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
@@ -71,7 +71,7 @@ public class OrderController {
     }
 
     // 주문 취소 로직 호출
-    @PostMapping("/order/{orderId}/cancel")
+    @PostMapping(value = "/order/{orderId}/cancel")
     public @ResponseBody
     ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
 

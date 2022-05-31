@@ -25,7 +25,7 @@ public class CartController {
 
 
     // 장바구니 페이지로 이동
-    @GetMapping("/cart")
+    @GetMapping(value = "/cart")
     public String orderHist(Principal principal, Model model) {
         List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
         model.addAttribute("cartItems", cartDetailList);
@@ -34,7 +34,7 @@ public class CartController {
     }
 
     // 장바구니 페이지 로직
-    @PostMapping("/cart")
+    @PostMapping(value = "/cart")
     public @ResponseBody
     ResponseEntity order(@RequestBody @Valid CartItemDto cartItemDto, BindingResult bindingResult, Principal principal) {
 
@@ -60,8 +60,9 @@ public class CartController {
     }
 
     // 장바구니 수량 업데이트 요청
-    @PatchMapping("/cartItem/{cartItemId}")
-    public @ResponseBody ResponseEntity updateCartItem (@PathVariable("cartItemId") Long cartItemId, int count, Principal principal) {
+    @PatchMapping(value = "/cartItem/{cartItemId}")
+    public @ResponseBody ResponseEntity updateCartItem
+        (@PathVariable("cartItemId") Long cartItemId, int count, Principal principal) {
         if (count <= 0 ) {
             return new ResponseEntity<String>("최소 1개 이상 담아주세요", HttpStatus.BAD_REQUEST);
         } else if (!cartService.validateCartItem(cartItemId, principal.getName())) {
@@ -73,7 +74,7 @@ public class CartController {
     }
 
     // 장바구니 삭제 요청
-    @DeleteMapping("/cartItem/{cartItemId}")
+    @DeleteMapping(value = "/cartItem/{cartItemId}")
     public @ResponseBody ResponseEntity deleteCartItem (@PathVariable("cartItemId") Long cartItemId, Principal principal){
         if (!cartService.validateCartItem(cartItemId, principal.getName())) {
             return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);

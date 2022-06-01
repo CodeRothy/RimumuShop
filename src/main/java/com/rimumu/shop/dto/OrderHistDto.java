@@ -28,6 +28,7 @@ public class OrderHistDto {
     private List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 
     public void addOrderItemDto(OrderItemDto orderItemDto) {
+
         orderItemDtoList.add(orderItemDto);
     }
 

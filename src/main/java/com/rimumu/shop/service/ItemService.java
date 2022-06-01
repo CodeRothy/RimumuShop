@@ -39,7 +39,7 @@ public class ItemService {
             ItemImg itemImg = new ItemImg();
             itemImg.setItem(item);
             if (i == 0) {
-                itemImg.setRepImgYn("y"); // 썸네일 여부
+                itemImg.setRepImgYn("Y"); // 썸네일 여부
             } else {
                 itemImg.setRepImgYn("N");;
             }

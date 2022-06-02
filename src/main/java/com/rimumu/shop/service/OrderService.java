@@ -32,6 +32,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
 
+    // 주문
     public Long order(OrderDto orderDto, String email) {
         // 주문할 상품 조회
         Item item = itemRepository.findById(orderDto.getItemId())
@@ -49,7 +50,26 @@ public class OrderService {
         return order.getId();
     }
 
+    // 장바구니에서 주문
+    public Long orders(List<OrderDto> orderDtoList, String email) {
+        Member member = memberRepository.findByEmail(email);
+        List<OrderItem> orderItemList = new ArrayList<>();
 
+        for (OrderDto orderDto : orderDtoList) {
+            Item item = itemRepository.findById(orderDto.getItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+            orderItemList.add(orderItem);
+        }
+
+        Order order = Order.createOrder(member, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
+    }
+
+    // 구매이력
     @Transactional(readOnly = true)
     public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
 
@@ -62,8 +82,10 @@ public class OrderService {
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
             for (OrderItem orderItem : orderItems) {
-                ItemImg itemImg = itemImgRepository.findByItemAndRepImgYn(orderItem.getItem().getId(), "Y");
-                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
+                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn
+                        (orderItem.getItem().getId(), "Y");
+                OrderItemDto orderItemDto =
+                        new OrderItemDto(orderItem, itemImg.getImgUrl());
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
 
@@ -72,6 +94,7 @@ public class OrderService {
 
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
     }
+
 
 
     // 주문 취소 로직

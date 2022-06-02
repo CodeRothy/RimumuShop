@@ -3,6 +3,7 @@ package com.rimumu.shop.controller;
 
 import com.rimumu.shop.dto.CartDetailDto;
 import com.rimumu.shop.dto.CartItemDto;
+import com.rimumu.shop.dto.CartOrderDto;
 import com.rimumu.shop.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -82,6 +83,28 @@ public class CartController {
 
         cartService.deleteCartItem(cartItemId);
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
+    }
+
+    // 장바구니 상품 수량 업데이트 요청
+    @PostMapping( value = "/cart/orders")
+    public @ResponseBody ResponseEntity orderCartItem
+            (@RequestBody CartOrderDto cartOrderDto, Principal principal) {
+
+        List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
+
+        if (cartOrderDtoList == null || cartOrderDtoList.size() == 0) {
+            return new ResponseEntity<String >("주문할 상품을 선택해주세요.", HttpStatus.FORBIDDEN);
+        }
+
+        for (CartOrderDto cartOrder : cartOrderDtoList) {
+            if (!cartService.validateCartItem(cartOrder.getCartItemId(), principal.getName())) {
+                return new ResponseEntity<String >("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            }
+        }
+
+        Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName());
+
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
 }

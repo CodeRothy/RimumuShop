@@ -56,7 +56,7 @@
     <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
 
         <p class="h2">
-            상품 등록
+            메뉴 등록
         </p>
 
         <input type="hidden" th:field="*{id}">
@@ -70,9 +70,9 @@
 
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text">상품명</span>
+                <span class="input-group-text">메뉴명</span>
             </div>
-            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요">
+            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="메뉴명을 입력해주세요">
         </div>
         <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
 
@@ -83,6 +83,29 @@
             <input type="number" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요">
         </div>
         <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">카테고리</span>
+            </div>
+            <label>
+                <input type="radio" name="category" value="coffee" th:field="*{category}" class="form-control" >
+                coffee
+            </label>
+            <label>
+                <input type="radio" name="category" value="non-coffee" th:field="*{category}" class="form-control" >
+                non-coffee
+            </label>
+            <label>
+                <input type="radio" name="category" value="frappuccino" th:field="*{category}" class="form-control" >
+                frappuccino
+            </label>
+            <label>
+                <input type="radio" name="category" value="tea" th:field="*{category}" class="form-control" >
+                tea
+            </label>
+        </div>
+        <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="fieldError">Incorrect data</p>
 
         <div class="input-group">
             <div class="input-group-prepend">

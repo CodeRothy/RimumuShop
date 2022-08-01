@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+
 html {
     position: relative;
     min-height: 100%;
@@ -5,9 +14,26 @@ html {
 }
 body {
     min-height: 100%;
+    color: #353535;
+    font-family: 'Archivo Black', sans-serif;
 }
+
+p {
+    font-family : 'Pretendard-Regular';
+}
+.blue {
+    color : #3985c3;
+}
+.orange {
+    color : #e3664a;
+}
+
+.bg-orange {
+    background-color : #e3664a;
+}
+
 .footer {
-    position: absolute;
+    position: inherit;
     left: 0;
     right: 0;
     bottom: 0;

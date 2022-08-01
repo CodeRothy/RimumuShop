@@ -28,6 +28,9 @@ public class Item extends BaseEntity {
     private int price; // 가격
 
     @Column(nullable = false)
+    private String category; // 카테고리
+
+    @Column(nullable = false)
     private  int stockNumber; // 재고수량
 
     @Lob

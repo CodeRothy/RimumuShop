@@ -42,13 +42,16 @@ public class Order extends BaseEntity {
     }
 
     public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+
         Order order = new Order();
         order.setMember(member);
+
         for (OrderItem orderItem : orderItemList) {
             order.addOrderItem(orderItem);
         }
         order.setOrderStatus(OrderStatus.ORDER); // 주문상태를 order 로 세팅
         order.setOrderDate(LocalDateTime.now());
+
         return order;
     }
 

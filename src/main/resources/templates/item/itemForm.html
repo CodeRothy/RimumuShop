@@ -78,6 +78,14 @@
 
         <div class="input-group">
             <div class="input-group-prepend">
+                <span class="input-group-text">영문 메뉴명</span>
+            </div>
+            <input type="text" th:field="*{itemNmEng}" class="form-control" placeholder="영어 메뉴명을 입력해주세요">
+        </div>
+        <p th:if="${#fields.hasErrors('itemNmEng')}" th:errors="*{itemNmEng}" class="fieldError">Incorrect data</p>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
                 <span class="input-group-text">가격</span>
             </div>
             <input type="number" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요">

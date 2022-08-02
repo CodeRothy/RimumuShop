@@ -24,6 +24,9 @@ public class Item extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String itemNm; // 상품명
 
+    @Column(nullable = false, length = 50)
+    private String itemNmEng; // 영어 상품명
+
     @Column(nullable = false)
     private int price; // 가격
 

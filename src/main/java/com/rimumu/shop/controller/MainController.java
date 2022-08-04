@@ -2,6 +2,7 @@ package com.rimumu.shop.controller;
 
 import com.rimumu.shop.dto.ItemSearchDto;
 import com.rimumu.shop.dto.MainItemDto;
+import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,4 +31,6 @@ public class MainController {
         model.addAttribute("maxPage", 5);
         return "main";
     }
+
+
 }

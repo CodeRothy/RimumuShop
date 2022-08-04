@@ -15,4 +15,6 @@ public interface ItemRepositoryCustom {
     // MainItemDto 6.4장
     Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
+    // Category 불러오기
+    Page<MainItemDto> getCategoryItemPage(String category, Pageable pageable);
 }

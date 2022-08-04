@@ -2,6 +2,7 @@ package com.rimumu.shop.controller;
 
 import com.rimumu.shop.dto.ItemFormDto;
 import com.rimumu.shop.dto.ItemSearchDto;
+import com.rimumu.shop.dto.MainItemDto;
 import com.rimumu.shop.entity.Item;
 import com.rimumu.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -115,8 +116,25 @@ public class ItemController {
 
     }
 
+    // 카테고리 상품 가져오기
+    @GetMapping("/category/{category}")
+    public String category(@PathVariable("category")String category, Optional<Integer> page, Model model){
 
-    // User 상품 상세 페이지
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        Page<MainItemDto> items = itemService.getCategoryItem(category, pageable);
+
+        System.out.println(category);
+        System.out.println(items.toString());
+
+        model.addAttribute("items", items);
+        model.addAttribute("category", category);
+        model.addAttribute("maxPage", 5);
+
+        return "category/category";
+    }
+
+
+    // 상품 상세 페이지 (user view)
     @GetMapping(value = "/item/{itemId}")
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId){
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);

@@ -1,6 +1,5 @@
 package com.rimumu.shop.repository;
 
-import com.querydsl.core.QueryFactory;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -105,6 +104,37 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .join(itemImg.item, item)
                 .where(itemImg.repImgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<MainItemDto> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression categoryLike(String category){
+        return StringUtils.isEmpty(category) ? null : QItem.item.category.like("%" + category + "%");
+    }
+    @Override
+    public Page<MainItemDto> getCategoryItemPage(String category, Pageable pageable) {
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        QueryResults<MainItemDto> results = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemNm,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price)
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repImgYn.eq("Y"))
+                .where(categoryLike(category))
                 .orderBy(item.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

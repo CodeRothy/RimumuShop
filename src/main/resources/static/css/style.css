@@ -121,7 +121,7 @@ ol {
 
 .section-title h4,
 .section-title h5 {
-	color: #ffffff;
+	color: #3985c3;
 	font-weight: 600;
 	line-height: 21px;
 	text-transform: uppercase;
@@ -136,7 +136,7 @@ ol {
 	top: -6px;
 	height: 32px;
 	width: 4px;
-	background: #958e89;
+	background: #e3664a;
 	content: "";
 }
 

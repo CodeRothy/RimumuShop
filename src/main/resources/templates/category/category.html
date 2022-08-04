@@ -38,104 +38,39 @@
 
         <!-- 작품 시작 -->
         <section class="product spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="trending__product">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-8">
-                                    <div class="section-title">
-                                        <h4 th:text="${category}">Category</h4>
-                                    </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="trending__product">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="section-title">
+                                    <h4 th:text="${category}">Category</h4>
                                 </div>
                             </div>
-                            <div class="row main__item">
-                                <th:block th:each="item : ${items}">
-                                    <div class="col-md-3 margin">
-                                        <div class="card">
-                                            <a th:href="'/item/' +${item.id}" class="text-dark">
-                                                <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}">
-                                                <div class="card-body">
-                                                    <h4 class="card-title">[[${item.itemNm}]]</h4>
-                                                    <p class="card-text">[[${item.itemDetail}]]</p>
-                                                    <h5 class="card-title blue">[[${item.price}]]원</h5>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </th:block>
-                            </div>
-                            <!-- <div class="row" >
-                                       <div class="col-lg-4 col-md-6 col-sm-6"  >
-                                            <th:block th:each="item, status: ${items.getContent()}">
-                                                <div class="product__item">
-                                                    <div class="product__item__pic set-bg" th:data-setbg="@{/img/poster/poster1.jpg">
-                                                        <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                                    </div>
-                                                    <div class="product__item__text">
-                                                        <a href="/content/detail/1">
-                                                            <h5 th:text="${item.itemNm}"> 음료명 </h5>
-                                                            <p th:text="${item.itemNmEng}"></p>
-                                                            <h3 class="blue" th:text="${item.price}"></h3>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                        </div>
+
+                        <!-- 카테고리 상품 -->
+                        <div class="row main__item">
+                            <th:block th:each="item : ${items}">
+                                <div class="col-md-3 margin">
+                                    <div class="card">
+                                        <a th:href="'/item/' +${item.id}" class="text-dark">
+                                            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}">
+                                            <div class="card-body">
+                                                <h4 class="card-title">[[${item.itemNm}]]</h4>
+                                                <p class="card-text">[[${item.itemDetail}]]</p>
+                                                <h5 class="card-title blue">[[${item.price}]]원</h5>
                                             </div>
-                                -->
-                                <!--<div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/poster/poster2.jpg">
-                                            <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h5><a href="/content/detail/2"> 야화첩 </a></h5>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/poster/poster3.jpg">
-                                            <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h5><a href="/content/detail/3"> 지젤 씨의 피 </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/poster/poster4.jpg">
-                                            <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h5><a href="/content/detail/4"> 리미티드 런 </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/poster/poster5.jpg">
-                                            <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h5><a href="/content/detail/5"> 광안 </a></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/poster/poster6.jpg">
-                                            <div class="ep"><i class="fa fa-heart"></i> 233</div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h5><a href="/content/detail/6"> 러브 오어 헤이트 </a></h5>
-                                        </div>
-                                    </div>
-                                </div>-->
-                            </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- 페이징 -->
             <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
                 <ul class="pagination justify-content-center">
 

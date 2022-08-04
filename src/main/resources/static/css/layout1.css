@@ -21,18 +21,9 @@ body {
 p {
     font-family : 'Pretendard-Regular';
 }
-.blue {
-    color : #3985c3;
-}
-.orange {
-    color : #e3664a;
-}
 
-.bg-orange {
-    background-color : #e3664a;
-}
 
-.footer {
+/*.footer {
     position: inherit;
     left: 0;
     right: 0;
@@ -40,7 +31,7 @@ p {
     width: 100%;
     padding: 15px 0;
     text-align: center;
-}
+}*/
 .content{
     margin-bottom:100px;
     margin-top: 50px;

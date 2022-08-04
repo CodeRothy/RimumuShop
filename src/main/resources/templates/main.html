@@ -33,7 +33,7 @@
 </th:block>
 
 <div layout:fragment="content">
-
+    <div class="wrapper">
         <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active item">
@@ -49,12 +49,10 @@
 
         <div class="row d-flex justify-content-center">
             <div class="category-name">
-                <hr class="bg-orange">
-                <h3 class="blue"> Springbucks Menu </h3>
-                <hr class="bg-orange">
+                <h3 class="blue line-org"> Springbucks Menu </h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row main__item">
             <th:block th:each="item, status: ${items.getContent()}">
                 <div class="col-md-3 margin">
                     <div class="card">
@@ -70,24 +68,25 @@
                 </div>
             </th:block>
         </div>
-            <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                <ul class="pagination justify-content-center">
+        <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+            <ul class="pagination justify-content-center">
 
-                    <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-                        <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                            <span aria-hidden='true'>Prev</span>
-                        </a>
-                    </li>
+                <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                    <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                        <span aria-hidden='true'>Prev</span>
+                    </a>
+                </li>
 
-                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                    </li>
+                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                    <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                </li>
 
-                    <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-                        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                            <span aria-hidden='true'>Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                    <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                        <span aria-hidden='true'>Next</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

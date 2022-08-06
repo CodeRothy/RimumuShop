@@ -96,6 +96,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                         new QMainItemDto(
                                 item.id,
                                 item.itemNm,
+                                item.itemNmEng,
                                 item.itemDetail,
                                 itemImg.imgUrl,
                                 item.price)
@@ -115,7 +116,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
     }
 
     private BooleanExpression categoryLike(String category){
-        return StringUtils.isEmpty(category) ? null : QItem.item.category.like("%" + category + "%");
+        return StringUtils.isEmpty(category) ? null : QItem.item.category.like(category);
     }
     @Override
     public Page<MainItemDto> getCategoryItemPage(String category, Pageable pageable) {
@@ -127,6 +128,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                         new QMainItemDto(
                                 item.id,
                                 item.itemNm,
+                                item.itemNmEng,
                                 item.itemDetail,
                                 itemImg.imgUrl,
                                 item.price)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout1}">
 
 <head>
@@ -198,6 +199,68 @@
             <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
 
         </div>
+
+        <!-- 리뷰 -->
+        <hr>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-9">
+                <!-- 리뷰 폼 -->
+                <div class="anime__details__form">
+                    <div class="section-title">
+                        <h5>Review</h5>
+                    </div>
+                    <form role="form">
+                        <div class="anime__details__btn">
+                            <label class="like-btn">
+                                <input type="radio" name="heart" value="y" required="required">
+                                <i class="fa fa-regular fa-thumbs-up"></i> 좋아요</label>
+                            <label class="unlike-btn">
+                                <input type="radio" name="heart" value="n" required="required">
+                                <i class="fa fa-regular fa-thumbs-down"></i> 싫어요</label>
+                        </div>
+
+                        <textarea sec:authorize="isAuthenticated()" name="comment" id="comment" placeholder="Your Comment"></textarea>
+                        <textarea disabled sec:authorize="isAnonymous()" name="comment" placeholder="로그인 후 리뷰를 남겨주세요."></textarea>
+
+
+                        <button type="button" id="btn-save" class="btn-blue" sec:authorize="isAuthenticated()"><i class="fa fa-location-arrow"></i> Review</button>
+                        <a href="/login" class="btn-orange" sec:authorize="isAnonymous()"><i class="fa fa-location-arrow"></i> 로그인하기</a>
+
+                    </form>
+                    <br>
+                    <hr>
+                </div>
+                <!-- 리뷰폼 끝 -->
+                <!-- 리뷰 리스트 -->
+                <div class="anime__details__review">
+                    <div class="section-title">
+                        <h5>Reviews</h5>
+                    </div>
+                    <div class="anime__review__item" th:if="${reviewList != null} or ${reviewList.size() !=0}" th:each="review:${reviewList}">
+                        <div class="anime__review__item__pic">
+                            <span th:text="${review.userName}">userName</span>
+                        </div>
+                        <div class="anime__review__item__text">
+                            <h5 th:if="${review.heart} == y">좋아요 <i class="fa fa-regular fa-thumbs-up"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
+                            <h5 th:if="${review.heart} == n">싫어요 <i class="fa fa-regular fa-thumbs-down"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
+                            <p th:text="${review.comment}">와 너무 재밌을것 같아욤</p>
+                        </div>
+                    </div>
+                    <!-- 리뷰가 없을 때 -->
+                    <div class="anime__review__item" th:if="${reviewList == null} or ${reviewList.size() ==0}" >
+                        <div class="anime__review__item__text">
+                            <h6> 등록된 리뷰가 없습니다. <i class="fa fa-regular fa-face-monocle"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <!-- 리뷰 리스트 끝 -->
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- 리뷰 끝 -->
+
     </div>
 </div>
 

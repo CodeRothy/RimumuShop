@@ -7,6 +7,16 @@ import lombok.Setter;
 @Getter @Setter
 public class OrderItemDto {
 
+
+    private String itemNm; // 상품명
+
+    private int count;
+
+    private int orderPrice; // 주문금액
+
+    private String imgUrl;
+
+
     public OrderItemDto(OrderItem orderItem, String imgUrl) {
 
         this.itemNm = orderItem.getItem().getItemNm();
@@ -16,13 +26,5 @@ public class OrderItemDto {
 
 
     }
-
-    private String itemNm; // 상품명
-
-    private int count;
-
-    private int orderPrice; // 주문금액
-
-    private String imgUrl;
 
 }

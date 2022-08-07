@@ -1,9 +1,5 @@
 package com.rimumu.shop.dto;
 
-
-import com.rimumu.shop.entity.Item;
-import com.rimumu.shop.entity.Member;
-import com.rimumu.shop.entity.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +17,14 @@ public class ReviewDto {
 
     private LocalDateTime createdDate;
 
-    public ReviewDto(ReviewDto reviewDto, Item item, Member member) {
-
-        this.reviewId = reviewDto.reviewId;
-
-
-
-    }
+//    @QueryProjection
+//    public MainItemDto(Long id, String itemNm, String itemNmEng, String itemDetail, String imgUrl,Integer price){
+//        this.id = id;
+//        this.itemNm = itemNm;
+//        this.itemNmEng = itemNmEng;
+//        this.itemDetail = itemDetail;
+//        this.imgUrl = imgUrl;
+//        this.price = price;
+//    }
 
 }

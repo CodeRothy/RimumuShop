@@ -4,7 +4,10 @@ import com.rimumu.shop.dto.ItemFormDto;
 import com.rimumu.shop.dto.ItemSearchDto;
 import com.rimumu.shop.dto.MainItemDto;
 import com.rimumu.shop.entity.Item;
+import com.rimumu.shop.entity.Review;
+import com.rimumu.shop.repository.ReviewRepository;
 import com.rimumu.shop.service.ItemService;
+import com.rimumu.shop.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +31,7 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ReviewService reviewService;
 
     // 상품 등록
     @GetMapping(value = "/admin/item/new")
@@ -138,7 +142,14 @@ public class ItemController {
     @GetMapping(value = "/item/{itemId}")
     public String itemDtl(Model model, @PathVariable("itemId") Long itemId){
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+
+        // 리뷰 정보
+        List<Review> reviewList = reviewService.getReviewList(itemId);
+        model.addAttribute("reviewList", reviewList);
+
         model.addAttribute("item", itemFormDto);
         return "item/itemDtl";
     }
+
+    // 리뷰 저장
 }

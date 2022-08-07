@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -46,6 +47,11 @@ public class Item extends BaseEntity {
     private LocalDateTime regTime; // 등록시간
 
     private LocalDateTime updateTime; // 수정시간
+
+    // 리뷰 List
+    @OneToMany(mappedBy = "review", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderBy("review_id desc")
+    private List<Review> reviewList;
 
 
     public void updateItem(ItemFormDto itemFormDto) {

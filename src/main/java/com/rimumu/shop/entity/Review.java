@@ -17,6 +17,10 @@ public class Review extends BaseEntity {
 
     private String review;
 
+//    private String heart;
+
+    private String memberName;
+
     private LocalDateTime createdDate;
 
     @ManyToOne

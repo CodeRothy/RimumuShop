@@ -1,7 +1,10 @@
 package com.rimumu.shop.dto;
 
+import com.rimumu.shop.entity.Item;
+import com.rimumu.shop.entity.Review;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +15,8 @@ public class ReviewDto {
     private Long reviewId;
 
     private String review;
+
+//    private String heart;
 
     private String memberName;
 
@@ -26,5 +31,21 @@ public class ReviewDto {
 //        this.imgUrl = imgUrl;
 //        this.price = price;
 //    }
+
+    public ReviewDto(Long reviewId, String review, String memberName) {
+        this.reviewId = reviewId;
+        this.review = review;
+//        this.heart = heart;
+        this.memberName = memberName;
+        this.createdDate = LocalDateTime.now();
+    }
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public Review createReview(String memberName) {
+        setMemberName(memberName);
+        return modelMapper.map(this, Review.class);
+    }
+
 
 }

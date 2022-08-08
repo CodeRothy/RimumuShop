@@ -108,6 +108,43 @@
             });
         }
 
+        function reviewSave(id) {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/item/" + id;
+            var paramData = {
+                review : $("#review").val(),
+            };
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url      : url,
+                type     : "POST",
+                contentType : "application/json",
+                data     : param,
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    alert("리뷰가 등록되었습니다.");
+                    window.location.reload();
+                },
+                error : function(jqXHR, status, error){
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
+
     </script>
 </th:block>
 
@@ -210,20 +247,20 @@
                         <h5>Review</h5>
                     </div>
                     <form role="form">
-                        <div class="anime__details__btn">
+                   <!--     <div class="anime__details__btn">
                             <label class="like-btn">
                                 <input type="radio" name="heart" value="y" required="required">
                                 <i class="fa fa-regular fa-thumbs-up"></i> 좋아요</label>
                             <label class="unlike-btn">
                                 <input type="radio" name="heart" value="n" required="required">
                                 <i class="fa fa-regular fa-thumbs-down"></i> 싫어요</label>
-                        </div>
+                        </div>-->
 
-                        <textarea sec:authorize="isAuthenticated()" name="comment" id="comment" placeholder="Your Comment"></textarea>
-                        <textarea disabled sec:authorize="isAnonymous()" name="comment" placeholder="로그인 후 리뷰를 남겨주세요."></textarea>
+                        <textarea sec:authorize="isAuthenticated()" name="comment" id="review" placeholder="Your Comment"></textarea>
+                        <textarea disabled sec:authorize="isAnonymous()" name="review" placeholder="로그인 후 리뷰를 남겨주세요."></textarea>
 
 
-                        <button type="button" id="btn-save" class="btn-blue" sec:authorize="isAuthenticated()"><i class="fa fa-location-arrow"></i> Review</button>
+                        <button type="button" class="btn-blue" sec:authorize="isAuthenticated()"th:value="${item.id}" onclick="reviewSave(this.value)"><i class="fa fa-location-arrow"></i> Review</button>
                         <a href="/login" class="btn-orange" sec:authorize="isAnonymous()"><i class="fa fa-location-arrow"></i> 로그인하기</a>
 
                     </form>
@@ -238,12 +275,12 @@
                     </div>
                     <div class="anime__review__item" th:if="${reviewList != null} or ${reviewList.size() !=0}" th:each="review:${reviewList}">
                         <div class="anime__review__item__pic">
-                            <span th:text="${review.userName}">userName</span>
+                            <span th:text="${review.memberName}">userName</span>
                         </div>
                         <div class="anime__review__item__text">
-                            <h5 th:if="${review.heart} == y">좋아요 <i class="fa fa-regular fa-thumbs-up"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
-                            <h5 th:if="${review.heart} == n">싫어요 <i class="fa fa-regular fa-thumbs-down"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
-                            <p th:text="${review.comment}">와 너무 재밌을것 같아욤</p>
+                           <!-- <h5 th:if="${review.heart} == y">좋아요 <i class="fa fa-regular fa-thumbs-up"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
+                            <h5 th:if="${review.heart} == n">싫어요 <i class="fa fa-regular fa-thumbs-down"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>-->
+                            <p th:text="${review.review}">와 너무 재밌을것 같아욤</p>
                         </div>
                     </div>
                     <!-- 리뷰가 없을 때 -->

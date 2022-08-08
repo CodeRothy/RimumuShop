@@ -112,9 +112,9 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/item/" + id;
+            var url = "/item/" + id + "/review";
             var paramData = {
-                review : $("#review").val(),
+                review : $("#review").val()
             };
 
             var param = JSON.stringify(paramData);
@@ -240,7 +240,7 @@
         <!-- 리뷰 -->
         <hr>
         <div class="row d-flex justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <!-- 리뷰 폼 -->
                 <div class="anime__details__form">
                     <div class="section-title">
@@ -259,10 +259,13 @@
                         <textarea sec:authorize="isAuthenticated()" name="comment" id="review" placeholder="Your Comment"></textarea>
                         <textarea disabled sec:authorize="isAnonymous()" name="review" placeholder="로그인 후 리뷰를 남겨주세요."></textarea>
 
-
-                        <button type="button" class="btn-blue" sec:authorize="isAuthenticated()"th:value="${item.id}" onclick="reviewSave(this.value)"><i class="fa fa-location-arrow"></i> Review</button>
-                        <a href="/login" class="btn-orange" sec:authorize="isAnonymous()"><i class="fa fa-location-arrow"></i> 로그인하기</a>
-
+                        <div class="row mt-3">
+                            <div class="col-auto mr-auto"></div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-blue" sec:authorize="isAuthenticated()"th:value="${item.id}" onclick="reviewSave(this.value)"><i class="fa fa-location-arrow"></i> Review</button>
+                                <a href="/members/login" class="btn btn-orange" sec:authorize="isAnonymous()"><i class="fa fa-location-arrow"></i> Login </a>
+                            </div>
+                        </div>
                     </form>
                     <br>
                     <hr>
@@ -275,12 +278,14 @@
                     </div>
                     <div class="anime__review__item" th:if="${reviewList != null} or ${reviewList.size() !=0}" th:each="review:${reviewList}">
                         <div class="anime__review__item__pic">
-                            <span th:text="${review.memberName}">userName</span>
+                            <span th:text="${review.memberName}">memberName</span>
                         </div>
                         <div class="anime__review__item__text">
-                           <!-- <h5 th:if="${review.heart} == y">좋아요 <i class="fa fa-regular fa-thumbs-up"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>
-                            <h5 th:if="${review.heart} == n">싫어요 <i class="fa fa-regular fa-thumbs-down"></i> <span class="time" th:text="${#temporals.format(review.createdDate,'yyyy-MM-dd HH:mm')}"></span></h5>-->
                             <p th:text="${review.review}">와 너무 재밌을것 같아욤</p>
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <p class="card-text text-muted" th:text="${#temporals.format(review.updateTime,'yyyy-MM-dd HH:mm')}"></p>
+                                </div>
                         </div>
                     </div>
                     <!-- 리뷰가 없을 때 -->

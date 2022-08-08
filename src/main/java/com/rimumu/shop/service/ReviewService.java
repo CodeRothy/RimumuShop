@@ -36,19 +36,6 @@ public class ReviewService {
         return reviewList;
 
     }
-//    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
-//
-//        Order order = new Order();
-//        order.setMember(member);
-//
-//        for (OrderItem orderItem : orderItemList) {
-//            order.addOrderItem(orderItem);
-//        }
-//        order.setOrderStatus(OrderStatus.ORDER); // 주문상태를 order 로 세팅
-//        order.setOrderDate(LocalDateTime.now());
-//
-//        return order;
-//    }
 
 
     // 리뷰 등록
@@ -59,8 +46,7 @@ public class ReviewService {
             Member member = memberRepository.findByEmail(email);
             String memberName = member.getName();
 
-            Review review = reviewDto.createReview(memberName);
-            reviewRepository.save(review);
+            reviewRepository.save(reviewDto.toEntity(memberName, select, member));
 
         });
 

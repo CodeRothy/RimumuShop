@@ -1,14 +1,16 @@
 package com.rimumu.shop.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review extends BaseEntity {
 
     @Id
@@ -17,11 +19,7 @@ public class Review extends BaseEntity {
 
     private String review;
 
-//    private String heart;
-
     private String memberName;
-
-    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
@@ -30,8 +28,5 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-
-
 
 }

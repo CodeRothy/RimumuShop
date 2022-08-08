@@ -187,6 +187,7 @@ ol {
     border-radius: 5px;
     margin-top: 10px;
     color :#fff;
+    font-size: 16px;
 }
 
 .btn-orange {
@@ -194,6 +195,7 @@ ol {
     border-radius: 5px;
     margin-top: 10px;
     color :#fff;
+    font-size: 16px;
 }
 .btn-white {
     background-color : transparent;
@@ -201,6 +203,7 @@ ol {
     border-radius: 5px;
     margin-top: 10px;
     color :#fff;
+    font-size: 16px;
 }
 
 
@@ -1027,7 +1030,7 @@ ol {
 
 .anime__review__item__pic {
     font-size : 15px;
-    color : whitesmoke;
+    color : 3a3a3a;
 	float: left;
 	margin: 15px 20px 0 0;
 	position: relative;
@@ -1039,7 +1042,7 @@ ol {
 	right: -30px;
 	top: 5px;
 	border-top: 15px solid transparent;
-	border-left: 15px solid #3a3a3a;
+	border-left: 15px solid #f1f1f1;
 	content: "";
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
@@ -1054,14 +1057,14 @@ ol {
 
 .anime__review__item__text {
 	overflow: hidden;
-	background: #3a3a3a;
+	background: #f1f1f1;
 	padding: 18px 30px 16px 20px;
 	border-radius: 10px;
 }
 
 .anime__review__item__text h5 {
 
-	color: #ffffff;
+	color: #3a3a3a;
 	font-weight: 700;
 	margin-bottom: 10px;
 }
@@ -1071,7 +1074,7 @@ ol {
 	font-weight: 400;
 }
 .anime__review__item__text h6 {
-    color : whitesmoke;
+    color : 3a3a3a;
 }
 .anime__review__item__text .time {
 	font-size : 14px;
@@ -1080,7 +1083,7 @@ ol {
 
 .anime__review__item__text p {
     font-size : 16px;
-	color: #b7b7b7;
+	color: #3a3a3a;
 	line-height: 23px;
 	margin-left : 2px;
 	margin-bottom: 0;
@@ -1093,23 +1096,13 @@ ol {
 	padding-left: 20px;
 	padding-top: 12px;
 	height: 110px;
-	border: none;
+	border: 1px solid #3985c3;
 	border-radius: 5px;
 	resize: none;
-	margin-bottom: 24px;
+	/*margin-bottom: 24px;*/
 }
 
-.anime__details__form form button {
-	font-size: 11px;
-	color: #ffffff;
-	font-weight: 700;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	background: darkorange;
-	border: none;
-	padding: 10px 15px;
-	border-radius: 2px;
-}
+
 /* 미인증자 리뷰버튼 -> 로그인하기*/
 .reviewLoginBtn {
 	font-size: 11px;
@@ -1475,7 +1468,6 @@ ol {
 
 textarea[disabled]{
             -webkit-opacity:1;
-            -webkit-text-fill-color:whitesmoke;
             opacity:1 !important;
 
         }

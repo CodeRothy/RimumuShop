@@ -19,8 +19,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     // 리뷰 등록
-    @PostMapping(value = "/item/{itemId}")
-    public ResponseEntity reviewSave(@PathVariable("id") Long id, @RequestBody ReviewDto reviewDto, Principal principal, Model model) {
+    @PostMapping(value = "/item/{itemId}/review")
+    public ResponseEntity reviewSave(@PathVariable("itemId") Long id, @RequestBody ReviewDto reviewDto, Principal principal, Model model) {
 
         String email = principal.getName();
         return ResponseEntity.ok(reviewService.reviewSave(reviewDto,email,id));

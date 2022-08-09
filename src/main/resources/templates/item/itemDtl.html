@@ -282,10 +282,9 @@
                         </div>
                         <div class="anime__review__item__text">
                             <p th:text="${review.review}">와 너무 재밌을것 같아욤</p>
-                                <div class="col-auto mr-auto"></div>
-                                <div class="col-auto">
-                                    <p class="card-text text-muted" th:text="${#temporals.format(review.updateTime,'yyyy-MM-dd HH:mm')}"></p>
-                                </div>
+
+                                    <p class="card-text text-muted time" th:text="${#temporals.format(review.updateTime,'yyyy-MM-dd HH:mm')}"></p>
+
                         </div>
                     </div>
                     <!-- 리뷰가 없을 때 -->

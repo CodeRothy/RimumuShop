@@ -1078,7 +1078,7 @@ ol {
 }
 .anime__review__item__text .time {
 	font-size : 14px;
-	margin-left : 20px;
+    right:10px;
 }
 
 .anime__review__item__text p {

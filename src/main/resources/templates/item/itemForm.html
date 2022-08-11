@@ -51,7 +51,7 @@
     </style>
 </th:block>
 
-<div layout:fragment="content" class="wrapper">
+<div layout:fragment="content">
 
     <div class="wrapper">
 
@@ -98,20 +98,20 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">카테고리</span>
                 </div>
-                <label>
+                <label class="m-3">
                     <input type="radio" name="category" value="coffee" th:field="*{category}" class="form-control" >
                     coffee
                 </label>
-                <label>
+                <label class="m-3">
                     <input type="radio" name="category" value="non-coffee" th:field="*{category}" class="form-control" >
                     non-coffee
                 </label>
-                <label>
+                <label class="m-3">
                     <input type="radio" name="category" value="frappuccino" th:field="*{category}" class="form-control" >
                     frappuccino
                 </label>
-                <label>
-                    <input type="radio" name="category" value="tea" th:field="*{category}" class="form-control" >
+                <label class="m-3">
+                    <input type="radio" name="category" value="tea/ade" th:field="*{category}" class="form-control" >
                     tea
                 </label>
             </div>

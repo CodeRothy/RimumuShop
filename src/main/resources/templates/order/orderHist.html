@@ -76,43 +76,38 @@
             padding:30px;
             margin-bottom:20px;
         }
-        .fs18{
-            font-size:18px
-        }
-        .fs24{
-            font-size:24px
-        }
+
     </style>
 </th:block>
 
 <div layout:fragment="content" class="content-mg">
     <div class="wrapper">
 
-        <h2 class="mb-4">
+        <h2 class="mb-4 hp my-5">
             구매 이력
         </h2>
 
         <div th:each="order : ${orders.getContent()}">
 
             <div class="d-flex mb-3 align-self-center">
-                <h4 th:text="${order.orderDate} + ' 주문'"></h4>
+                <h4 class="hp mt-3" th:text="${order.orderDate} + ' 주문'"></h4>
                 <div class="ml-3">
                     <th:block th:if="${order.orderStatus == T(com.rimumu.shop.constant.OrderStatus).ORDER}">
-                        <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                        <button type="button" class="btn btn-blueLine" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
                     </th:block>
                     <th:block th:unless="${order.orderStatus == T(com.rimumu.shop.constant.OrderStatus).ORDER}">
                         <h4>(취소 완료)</h4>
                     </th:block>
                 </div>
             </div>
-            <div class="card d-flex">
+            <div class="card col-12 d-flex mb-5">
                 <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
                     <div class="repImgDiv">
                         <img th:src="${orderItem.imgUrl}" class = "rounded repImg" th:alt="${orderItem.itemNm}">
                     </div>
                     <div class="align-self-center w-75">
-                        <span th:text="${orderItem.itemNm}" class="fs24 font-weight-bold"></span>
-                        <div class="fs18 font-weight-light">
+                        <span th:text="${orderItem.itemNm}" class="h4 hp"></span>
+                        <div class="">
                             <span th:text="${orderItem.orderPrice} +'원'"></span>
                             <span th:text="${orderItem.count} +'개'"></span>
                         </div>
@@ -127,7 +122,7 @@
 
                 <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
                     <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
-                        <span aria-hidden='true'>Previous</span>
+                        <span aria-hidden='true'>Prev</span>
                     </a>
                 </li>
 

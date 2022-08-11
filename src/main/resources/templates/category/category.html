@@ -39,7 +39,7 @@
         <!-- 작품 시작 -->
         <section class="product spad">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="trending__product">
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8">
@@ -52,12 +52,12 @@
                         <!-- 카테고리 상품 -->
                         <div class="row main__item">
                             <th:block th:each="item : ${items}">
-                                <div class="col-md-3 margin">
+                                <div class="col-md-3">
                                     <div class="card">
                                         <a th:href="'/item/' +${item.id}" class="text-dark">
                                             <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}">
                                             <div class="card-body">
-                                                <h4 class="card-title">[[${item.itemNm}]]</h4>
+                                                <h4 class="card-title hp">[[${item.itemNm}]]</h4>
                                                 <p class="card-text text-muted">[[${item.itemNmEng}]]</p>
 
                                                 <p class="card-text">[[${item.itemDetail}]]</p>

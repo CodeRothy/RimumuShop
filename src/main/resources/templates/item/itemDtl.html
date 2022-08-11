@@ -180,15 +180,17 @@
                 <span th:unless="${item.itemSellStatus == T(com.rimumu.shop.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15" >
                     품절
                 </span>
-                <div class="h2" th:text="${item.itemNm}"></div>
+                <div class="h2 hp" th:text="${item.itemNm}"></div>
+                <p class="card-text text-muted" th:text="${item.itemNmEng}"></p>
+
                 <hr class="my-4">
 
-                <div class="text-right">
+                <div class="text-right d-flex ml-2">
                     <div class="h4 blue text-left">
                         <input type="hidden" th:value="${item.price}" id="price" name="price">
                         <span th:text="${item.price}"></span>원
                     </div>
-                    <div class="input-group w-50">
+                    <div class="input-group w-50 ml-5 header__form">
                         <div class="input-group-prepend">
                             <span class="input-group-text">수량</span>
                         </div>
@@ -197,16 +199,19 @@
                 </div>
                 <hr class="my-4">
 
-                <div class="text-right mgt-50">
-                    <h5>결제 금액</h5>
+                <div class="text-right mr-4">
+                    <p class="blue"> 총 결제 금액</p>
                     <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
-                </div>
-                <div th:if="${item.itemSellStatus == T(com.rimumu.shop.constant.ItemSellStatus).SELL}" class="text-right">
-                    <button type="button" class="btn btn-blueLine" onclick="addCart()">장바구니 담기</button>
-                    <button type="button" class="btn btn-blue" onclick="order()">주문하기</button>
-                </div>
-                <div th:unless="${item.itemSellStatus == T(com.rimumu.shop.constant.ItemSellStatus).SELL}" class="text-right">
-                    <button type="button" class="btn btn-danger btn-lg">품절</button>
+
+                    <div th:if="${item.itemSellStatus == T(com.rimumu.shop.constant.ItemSellStatus).SELL}" class="">
+                        <button type="button" class="btn btn-blueLine" onclick="addCart()">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-blue" onclick="order()">주문하기</button>
+                    </div>
+                    <div th:unless="${item.itemSellStatus == T(com.rimumu.shop.constant.ItemSellStatus).SELL}" class="">
+                        <button type="button" class="btn btn-orange btn-lg">품절</button>
+                    </div>
                 </div>
             </div>
         </div>
